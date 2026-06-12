@@ -256,7 +256,9 @@ async function proxyRequest(req, body, pathSearch, upstreamBase, blockedHeaders 
 
       // 流式透传
       if (resp.headers.get('content-type')?.includes('text/event-stream')) {
-        return { status: resp.status, headers: { ...respHeaders, 'content-type': 'text/event-stream', 'cache-control': 'no-cache', 'connection': 'keep-alive' }, body: resp.body, stream: true }
+        const { Readable } = await import('node:stream')
+        const nodeStream = Readable.fromWeb(resp.body)
+        return { status: resp.status, headers: { ...respHeaders, 'content-type': 'text/event-stream', 'cache-control': 'no-cache', 'connection': 'keep-alive' }, body: nodeStream, stream: true }
       }
 
       const respBody = await resp.text()
