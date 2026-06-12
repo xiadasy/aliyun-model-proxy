@@ -387,7 +387,7 @@ function logReq(req, url, status, startedAt) {
   console.log(`[request] ${req.method} ${url.pathname}${url.search} status=${status} duration=${ms}ms`)
 }
 
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
   console.log(`[proxy] listening on http://localhost:${PORT}`)
   console.log(`[proxy] upstream anthropic: ${UPSTREAM_BASE}`)
   console.log(`[proxy] upstream openai: ${OPENAI_UPSTREAM_BASE}`)
