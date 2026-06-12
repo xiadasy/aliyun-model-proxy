@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: dashscope-model-proxy
+    runtime: docker
+    plan: free
+    envVars:
+      - key: PORT
+        value: 3300
+      - key: PROXY_API_KEY
+        generateValue: true
+      - key: DASHSCOPE_API_KEYS
+        sync: false
+      - key: UPSTREAM_BASE_URL
+        value: https://dashscope.aliyuncs.com/apps/anthropic
+      - key: OPENAI_UPSTREAM_BASE_URL
+        value: https://dashscope.aliyuncs.com/compatible-mode/v1
+      - key: MODEL_IDS
+        value: qwen3.7-max-2026-06-08,qwen3.7-plus-2026-05-26,qwen3.7-plus,qwen3.7-max-preview,qwen3.7-max,glm-5.1,kimi-k2.6,qwen3.7-max-2026-05-17,deepseek-v4-flash,deepseek-v4-pro,qwen3.6-27b,qwen3.6-max-preview,qwen3.6-flash,qwen3.6-plus
+      - key: MODEL_COOLDOWN_SECONDS
+        value: 2592000
+      - key: STATE_PATH
+        value: /tmp/proxy-state.json
+      - key: UPSTREAM_AUTH_MODE
+        value: authorization
+      - key: CORS_ORIGIN
+        value: "*"
